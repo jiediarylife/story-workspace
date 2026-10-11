@@ -32,6 +32,25 @@ html,body{max-width:100%;overflow-x:clip}
  .barrow{grid-template-columns:70px minmax(0,1fr) 42px}
 }
 @media(max-width:370px){.main{padding-left:10px;padding-right:10px}.panel{padding:13px 11px}.calendar{gap:2px}.day{padding:5px 3px}.mobile-nav button{font-size:9px}}
+
+/* iPhone Safari form containment and safe-area correction, 2026-10-11. */
+html{width:100%;-webkit-text-size-adjust:100%}
+body{width:100%;overflow-x:hidden}
+.app,.main,#view,#editor,#editSection,#planForm,#recordForm,.formgrid,.field,.story,.panel{min-width:0;max-width:100%}
+.formgrid>*{min-width:0;max-width:100%}
+.field input,.field select,.field textarea,.control{display:block;box-sizing:border-box;width:100%;min-width:0;max-width:100%;}
+.field input[type="date"],.field input[type="time"],.field input[type="datetime-local"],.control[type="month"]{min-width:0!important;width:100%!important;max-width:100%!important;min-height:44px;-webkit-appearance:none;appearance:none;}
+.field input::-webkit-date-and-time-value{text-align:left;min-width:0}
+.field input::-webkit-datetime-edit{min-width:0;max-width:100%;padding:0;overflow:hidden}
+.field input::-webkit-calendar-picker-indicator{flex:none;margin:0 0 0 4px}
+@media(max-width:700px){
+ .main{width:100%;min-width:0;max-width:100%;overflow-x:clip}
+ .formgrid{grid-template-columns:minmax(0,1fr)}
+ .field{width:100%;min-width:0;max-width:100%}
+ .story,.panel{width:100%;min-width:0;max-width:100%}
+ .mobile-nav{bottom:0;isolation:isolate}
+ #editSection{scroll-margin-top:calc(18px + env(safe-area-inset-top))}
+}
 </style></head><body><div class="app"><aside class="side"><div class="brand">限動經營工作台</div><div class="brand-sub">內容企劃 · 成效紀錄 · 數據分析</div><nav id="nav" class="nav"></nav><div class="footnote">資料僅儲存於目前瀏覽器。<br>請定期下載完整備份。</div></aside><main class="main"><header class="top"><div><div class="eyebrow">STORY WORKSPACE</div><h1 id="heading">首頁總覽</h1><div id="subtitle" class="muted">讓每一則限動，都有清楚的方向。</div></div><div class="toolbar"><input id="month" type="month" class="control" style="width:170px" aria-label="選擇月份"><button class="btn" id="backupTop">下載備份</button></div></header><div id="view"></div></main></div><nav id="mobileNav" class="mobile-nav"></nav><div id="toast" class="toast hidden" role="status"></div><input id="importFile" type="file" accept="application/json,.json" hidden><script>
 'use strict';
 const KEY='story-workspace-v1', PAGES=[['home','⌂','首頁總覽'],['plan','▣','限動企劃'],['record','✎','成效紀錄'],['analysis','▥','數據分析'],['report','▤','月度報告']];
